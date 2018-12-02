@@ -15,6 +15,8 @@ public class Area extends JPanel{
     public Image image;
     public static Graphics g;
     public Rectangle rect;
+    public Area leftNeighbor;
+    public Area rightNeighbor;
     public Area(Graphics g, String filename){
     	this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));
     	image = loadArea(g, filename);
@@ -51,5 +53,14 @@ public class Area extends JPanel{
         frame.pack();
         frame.setVisible(true);
     }
+
+    public void setRightNeighbor(Area neighbor){
+    	rightNeighbor = neighbor;
+    }
+
+    public void setLeftNeighbor(Area neighbor){
+    	leftNeighbor = neighbor;
+    }
+    
 }
 
