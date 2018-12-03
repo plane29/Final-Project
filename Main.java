@@ -18,6 +18,8 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	public boolean rightClicked;
 	public boolean leftClicked;
 	public boolean hitBoxClicked;
+	public boolean inPuzzle;
+	public boolean inMyArea;
 	public Main(){
 		addMouseListener(this);
 		r = new Room();
@@ -57,7 +59,15 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     	int y = e.getY();
     	Pair toCheck = new Pair(x,y);
     	if(checkPair(toCheck,r)){
-    		if(checkLeft(toCheck,r)){
+    		if(inPuzzle){
+    			if(checkBottom(toCheck,r)){
+    				System.out.println("hello my dude");
+    				inMyArea=true;
+    				inPuzzle=false;
+    				repaint();
+    			}
+    		}
+    		else if(checkLeft(toCheck,r)){
     			leftClicked = true;
     			repaint();
     			//System.out.println("hhellloooooo");
@@ -76,7 +86,13 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     				Area.myInventory.flowerClicked=true;
     				repaint();
     			}
+    			else{
+
+    				inPuzzle = true;
+    				repaint();
+    			}
     		}
+
     	}
     	//l.setText(x+ " ");
 
@@ -104,6 +120,13 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         if(leftClicked){
         	r.currentArea = r.currentArea.leftNeighbor;
         	leftClicked = false;
+        }
+        if(inPuzzle){
+        	r.currentArea =r.currentArea.puzzle;
+        }
+        if(inMyArea){
+        	r.currentArea = r.currentArea.myArea;
+        	inMyArea=false;
         }
         r.drawRoom(g);
         //rect.rectangleDraw(g);
@@ -134,6 +157,10 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 			return r.currentArea.rect.get(2).isIn(p);
 		}
 		return false;
+	}
+
+	public boolean checkBottom(Pair p, Room r){
+		return r.currentArea.rect.get(2).isIn(p);
 	}
 
 	/*class Runner implements Runnable{

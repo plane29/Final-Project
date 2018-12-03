@@ -21,6 +21,8 @@ public class Area extends JPanel{
     public Area rightNeighbor;
     public Area forwardNeighbor;
     public Area backwardNeighbor;
+    public Area puzzle;
+    public Area myArea;
     public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "flower.jpg");
     public ArrayList<Rectangle> rect;
     public Area(Graphics g, String filename, int index){
@@ -62,7 +64,7 @@ public class Area extends JPanel{
 
     public static void main(String args[]){
     	JFrame frame = new JFrame("DrawToScreen");
-       Area area1 = new Area(g,"kitchen.jpg",0);
+       Area area1 = new Area(g,"computer.jpg",0);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(area1);
         frame.pack();
@@ -87,6 +89,10 @@ public class Area extends JPanel{
 
     public void createHitBox(int x, int y, int width, int height){
     	rect.add(new Rectangle(x, y, width, height));
+    }
+
+    public void setPuzzle(Area inPuzzle){
+    	puzzle = inPuzzle;
     }
 
 }

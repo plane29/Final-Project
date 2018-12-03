@@ -20,14 +20,14 @@ public class Room{
 
     public Room(){//int initWidth, int initHeight, int initNumSpheres, Pair[] initialPosition){
 	//width = initWidth;
-    areas = new Area[4];
+    areas = new Area[5];
     areas[0] = new Area(g, "conference.jpg",0);
     areas[1] = new Area(g, "kitchen.jpg",1);
     areas[2] = new Area(g, "image3.jpg",2);
     areas[3] = new Area(g, "image4.jpg",3);
     int k;
     int j;
-    for(int i = 0; i<areas.length; i++){
+    for(int i = 0; i<areas.length-1; i++){ //the -1 is because we added the puzzle
         k = (i+1)%4;
         j = ((i-1)+4)%4;
         areas[i].setRightNeighbor(areas[j]);
@@ -35,6 +35,11 @@ public class Room{
     }    
     areas[0].createHitBox(550,300,100,75);
     areas[1].createHitBox(100,250,100,100);
+    areas[4] = (new Area(g,"computer.jpg",6));
+    areas[0].puzzle = areas[4];
+    areas[4].rect.add(new Rectangle(0,640-100, 960, 100));
+    areas[4].myArea=areas[0];
+
     //areas[0].rect.add(new Rectangle(550, 300, 100, 75));
     currentArea = areas[0];
     //myInventory = new Inventory(960,640, "flower.jpg");
