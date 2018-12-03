@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 
 
+
 public class Inventory{
 	Font arial = new Font("Arial", Font.BOLD, 30);
 	int x;
