@@ -71,7 +71,11 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     		}
     		else if(checkHitBox(toCheck,r)){
     			hitBoxClicked = true;
-    			System.out.println("helloooooo");
+    			if(r.currentArea.num == 1){
+    				System.out.println("helloooooo");
+    				Area.myInventory.flowerClicked=true;
+    				repaint();
+    			}
     		}
     	}
     	//l.setText(x+ " ");

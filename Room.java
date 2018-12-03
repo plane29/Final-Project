@@ -16,14 +16,15 @@ public class Room{
     Area currentArea;
     Area areas[];
     Rectangle rectangles[];
+    public Inventory myInventory;
 
     public Room(){//int initWidth, int initHeight, int initNumSpheres, Pair[] initialPosition){
 	//width = initWidth;
     areas = new Area[4];
-    areas[0] = new Area(g, "conference.jpg");
-    areas[1] = new Area(g, "image2.jpg");
-    areas[2] = new Area(g, "image3.jpg");
-    areas[3] = new Area(g, "image4.jpg");
+    areas[0] = new Area(g, "conference.jpg",0);
+    areas[1] = new Area(g, "kitchen.jpg",1);
+    areas[2] = new Area(g, "image3.jpg",2);
+    areas[3] = new Area(g, "image4.jpg",3);
     int k;
     int j;
     for(int i = 0; i<areas.length; i++){
@@ -33,9 +34,10 @@ public class Room{
         areas[i].setLeftNeighbor(areas[k]);
     }    
     areas[0].createHitBox(550,300,100,75);
+    areas[1].createHitBox(100,250,100,100);
     //areas[0].rect.add(new Rectangle(550, 300, 100, 75));
     currentArea = areas[0];
-    
+    //myInventory = new Inventory(960,640, "flower.jpg");
 
 	/*numSpheres = initNumSpheres;
 	spheres  = new Sphere[numSpheres];
@@ -86,6 +88,7 @@ public class Room{
 
         public void drawRoom(Graphics g){
             currentArea.drawArea(g);
+            //currentArea.drawInventory(g);
         }
 
         public void updateRoom(Graphics g){

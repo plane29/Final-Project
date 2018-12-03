@@ -15,20 +15,22 @@ public class Area extends JPanel{
 	public static final int BOX_HEIGHT = 640;
     public Image image;
     public static Graphics g;
+    public int num;
     //public Rectangle rect[];
     public Area leftNeighbor;
     public Area rightNeighbor;
     public Area forwardNeighbor;
     public Area backwardNeighbor;
-    public Inventory myInventory;
+    public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "flower.jpg");
     public ArrayList<Rectangle> rect;
-    public Area(Graphics g, String filename){
+    public Area(Graphics g, String filename, int index){
     	this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));
     	image = loadArea(g, filename);
     	rect = new ArrayList<Rectangle>(2);
     	rect.add(0, new Rectangle(0,0, 100, BOX_HEIGHT));
     	rect.add(1, new Rectangle(860,0,100,640));
-    	myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT);
+    	num = index;
+    	//myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "flower.jpg");
     	//rect[2] = new Rectangle()
     	//rect[3] =
     	//rect[2] = new Rectangle(550, 300, 100, 75);
@@ -60,7 +62,7 @@ public class Area extends JPanel{
 
     public static void main(String args[]){
     	JFrame frame = new JFrame("DrawToScreen");
-        Area area1 = new Area(g,"kitchen.jpg");
+       Area area1 = new Area(g,"kitchen.jpg",0);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(area1);
         frame.pack();
