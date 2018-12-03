@@ -7,7 +7,7 @@ import java.awt.FontMetrics;
 
 
 public class Inventory{
-	Font arial = new Font("Arial", Font.BOLD, 400);
+	Font arial = new Font("Arial", Font.BOLD, 30);
 	int x;
 	int y;
 	int width;
@@ -22,7 +22,11 @@ public class Inventory{
 	}
 
 	public void drawInventory(Graphics g){
+		g.setFont(arial);
 		FontMetrics metrics = g.getFontMetrics(arial);
-		g.drawString("Inventory", 130, height-100);
+		g.setColor(Color.WHITE);
+		g.fillRect(100,height-105,metrics.stringWidth("Inventory"),33);
+		g.setColor(Color.BLACK);
+		g.drawString("Inventory", 100, height-80);
 	}
 }
