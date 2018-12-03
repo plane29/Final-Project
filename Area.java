@@ -8,23 +8,27 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.ArrayList;
 
 public class Area extends JPanel{
 	public static final int BOX_WIDTH = 960;
 	public static final int BOX_HEIGHT = 640;
     public Image image;
     public static Graphics g;
-    public Rectangle rect[];
+    //public Rectangle rect[];
     public Area leftNeighbor;
     public Area rightNeighbor;
     public Area forwardNeighbor;
     public Area backwardNeighbor;
+    public Inventory myInventory;
+    public ArrayList<Rectangle> rect;
     public Area(Graphics g, String filename){
     	this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));
     	image = loadArea(g, filename);
-    	rect = new Rectangle[2];
-    	rect[0] = new Rectangle(0,0, 100, BOX_HEIGHT);
-    	rect[1] = new Rectangle(860,0,100,640);
+    	rect = new ArrayList<Rectangle>(2);
+    	rect.add(0, new Rectangle(0,0, 100, BOX_HEIGHT));
+    	rect.add(1, new Rectangle(860,0,100,640));
+    	myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT);
     	//rect[2] = new Rectangle()
     	//rect[3] =
     	//rect[2] = new Rectangle(550, 300, 100, 75);
@@ -44,6 +48,7 @@ public class Area extends JPanel{
     public void drawArea(Graphics g){
     	//g.drawRect( 10, 10, 100, 100);
     	g.drawImage(image,0,0,BOX_WIDTH,BOX_HEIGHT,null);
+    	myInventory.drawInventory(g);
     }
 
     @Override    
@@ -76,6 +81,10 @@ public class Area extends JPanel{
 
     public void setBackwardNeighbor(Area neighbor){
     	backwardNeighbor = neighbor;
+    }
+
+    public void createHitBox(int x, int y, int width, int height){
+    	rect.add(new Rectangle(x, y, width, height));
     }
 
 }
