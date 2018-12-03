@@ -16,6 +16,8 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	public int FPS = 60;
 	public static Room r;
 	public boolean rightClicked;
+	public boolean leftClicked;
+	public boolean hitBoxClicked;
 	public Main(){
 		addMouseListener(this);
 		r = new Room();
@@ -56,7 +58,9 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     	Pair toCheck = new Pair(x,y);
     	if(checkPair(toCheck,r)){
     		if(checkLeft(toCheck,r)){
-    			System.out.println("hhellloooooo");
+    			leftClicked = true;
+    			repaint();
+    			//System.out.println("hhellloooooo");
     			//r.currentArea = r.areas[1];
     			//repaint();
      		}
@@ -64,6 +68,10 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     			//System.out.println("whats good");
     			rightClicked = true;
     			repaint();
+    		}
+    		else if(checkHitBox(toCheck,r)){
+    			hitBoxClicked = true;
+    			System.out.println("helloooooo");
     		}
     	}
     	//l.setText(x+ " ");
@@ -89,6 +97,10 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         	r.currentArea = r.currentArea.rightNeighbor;
         	rightClicked = false;
         }
+        if(leftClicked){
+        	r.currentArea = r.currentArea.leftNeighbor;
+        	leftClicked = false;
+        }
         r.drawRoom(g);
         //rect.rectangleDraw(g);
     }
@@ -106,11 +118,18 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	}
 
 	public boolean checkLeft(Pair p, Room r){
-		return r.currentArea.rect[0].isIn(p);
+		return r.currentArea.rect.get(0).isIn(p);
 	}
 
 	public boolean checkRight(Pair p, Room r){
-		return r.currentArea.rect[1].isIn(p);
+		return r.currentArea.rect.get(1).isIn(p);
+	}
+
+	public boolean checkHitBox(Pair p, Room r){
+		if(r.currentArea.rect.size()>2){	
+			return r.currentArea.rect.get(2).isIn(p);
+		}
+		return false;
 	}
 
 	/*class Runner implements Runnable{
