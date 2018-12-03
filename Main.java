@@ -10,7 +10,6 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 public class Main extends JPanel implements KeyListener, MouseListener{
-	Label l;
 	public int WIDTH = 960;
 	public int HEIGHT = 640;
 	public int FPS = 60;
@@ -21,48 +20,38 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	public boolean inPuzzle;
 	public boolean inMyArea;
 	public Main(){
-		addMouseListener(this);
-		r = new Room();
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		//Thread mainThread = new Thread(new Runner());
-		//mainThread.start();
-		/*l = new Label();
-		l.setBounds(20,50,100,20);
-		add(l);
-		setSize(100,300);
-		setLayout(null);
-		setVisible(true);*/
+	addMouseListener(this); //We got information and code about mouselistener from https://www.javatpoint.com/java-mouselistener.  This helped us know the methods and see an example.
+	r = new Room();
+	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	}
 
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) { //we copied this code from keyboard spheres
         char c=e.getKeyChar();
-	System.out.println("You pressed down: " + c);
+		System.out.println("You pressed down: " + c);
 
 	}
 
     
     public void keyReleased(KeyEvent e) {
         char c=e.getKeyChar();
-	System.out.println("\tYou let go of: " + c);
+		System.out.println("\tYou let go of: " + c);
 	
     }
 
 
     public void keyTyped(KeyEvent e) {
-	char c = e.getKeyChar();
-	System.out.println("You typed: " + c);
+		char c = e.getKeyChar();
+		System.out.println("You typed: " + c);
     }
 
-    public void mouseClicked(MouseEvent e) {  
-    	//l.setText("Mouse Clicked");  
+    public void mouseClicked(MouseEvent e) { //learned about mouse events on the website mentioned above. 
     	int x = e.getX();
     	int y = e.getY();
     	Pair toCheck = new Pair(x,y);
     	if(checkPair(toCheck,r)){
     		if(inPuzzle){
     			if(checkBottom(toCheck,r)){
-    				System.out.println("hello my dude");
-    				inMyArea=true;
+					inMyArea=true;
     				inPuzzle=false;
     				repaint();
     			}
@@ -70,19 +59,15 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     		else if(checkLeft(toCheck,r)){
     			leftClicked = true;
     			repaint();
-    			//System.out.println("hhellloooooo");
-    			//r.currentArea = r.areas[1];
-    			//repaint();
+
      		}
     		else if(checkRight(toCheck,r)){
-    			//System.out.println("whats good");
     			rightClicked = true;
     			repaint();
     		}
     		else if(checkHitBox(toCheck,r)){
     			hitBoxClicked = true;
     			if(r.currentArea.num == 1){
-    				System.out.println("helloooooo");
     				Area.myInventory.flowerClicked=true;
     				repaint();
     			}
@@ -94,24 +79,23 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     		}
 
     	}
-    	//l.setText(x+ " ");
 
     }  
-    public void mouseEntered(MouseEvent e) {  
-        //l.setText("Mouse Entered");  
+    public void mouseEntered(MouseEvent e) {  //taken from website above necessary to implement mouselistener
+
     }  
     public void mouseExited(MouseEvent e) {  
-        //l.setText("Mouse Exited");  
+
     }  
     public void mousePressed(MouseEvent e) {  
-        //l.setText("Mouse Pressed");  
+  
     }  
     public void mouseReleased(MouseEvent e) {  
-        //l.setText("Mouse Released");  
+
     }  
 
     @Override    
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) { //main idea of paint component taken from keyboard spheres
         super.paintComponent(g);
         if(rightClicked){
         	r.currentArea = r.currentArea.rightNeighbor;
@@ -129,11 +113,11 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         	inMyArea=false;
         }
         r.drawRoom(g);
-        //rect.rectangleDraw(g);
     }
-	public static void main(String[] args) {  
+
+	public static void main(String[] args) {  //main idea taken from keyboard spheres/draw to screen
     	Main hello = new Main();  
-    	JFrame frame = new JFrame("DrawToScreen");
+    	JFrame frame = new JFrame("Escape Room");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(hello);
         frame.pack();
@@ -162,22 +146,6 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	public boolean checkBottom(Pair p, Room r){
 		return r.currentArea.rect.get(2).isIn(p);
 	}
-
-	/*class Runner implements Runnable{
-	public void run()  //runs to update the spheres and rectangles
-	{
-        while(true){
-		//world.updateSpheres(1.0 / (double)FPS);
-        //world.updateRectangles(1.0/ (double)FPS);
-		repaint(); //paints again
-		try{
-		    Thread.sleep(1000/FPS);
-		}
-		catch(InterruptedException e){}
-	    }
-    
-	}
-	}*/
 
 
 

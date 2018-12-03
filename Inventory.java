@@ -23,16 +23,13 @@ public class Inventory extends JPanel{
 	boolean flowerClicked = false;
 
 	public Inventory(int initWidth, int initHeight, String filename){
-		//this.setPreferredSize(new Dimension(width, height));
-		//x = initX;
-		//y = initY;
 		flower = loadInventory(g, filename);
 		width = initWidth;
 		height = initHeight;
 	}
 
     public Image loadInventory(Graphics g, String filename){
-    	Image image;
+    	Image image; //see Area code, but learned about how to import an image and image class from https://docs.oracle.com/javase/tutorial/2d/images/loadimage.html
     	try{
         	image = ImageIO.read(new File(filename));
     	} 

@@ -24,7 +24,7 @@ public class Rectangle extends JPanel{
 		g.fillRect(x,y,width,height);
 	}
 
-	public boolean isIn(Pair point){
+	public boolean isIn(Pair point){ //main inspiration came from MonteCarlo
 		boolean in;
 		if((point.x<=x+width && point.x>=x) && (point.y<=y+height && point.y>=y)){
 			in = true;

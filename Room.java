@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class Room{
+public class Room{  //main inspiration came from world in pong/keyboard spheres
     Graphics g;
     
     Area currentArea;
@@ -18,8 +18,7 @@ public class Room{
     Rectangle rectangles[];
     public Inventory myInventory;
 
-    public Room(){//int initWidth, int initHeight, int initNumSpheres, Pair[] initialPosition){
-	//width = initWidth;
+    public Room(){
     areas = new Area[5];
     areas[0] = new Area(g, "conference.jpg",0);
     areas[1] = new Area(g, "kitchen.jpg",1);
@@ -39,49 +38,8 @@ public class Room{
     areas[0].puzzle = areas[4];
     areas[4].rect.add(new Rectangle(0,640-100, 960, 100));
     areas[4].myArea=areas[0];
-
-    //areas[0].rect.add(new Rectangle(550, 300, 100, 75));
     currentArea = areas[0];
-    //myInventory = new Inventory(960,640, "flower.jpg");
 
-	/*numSpheres = initNumSpheres;
-	spheres  = new Sphere[numSpheres];
-    rectangles = new Rectangle[2];
-	for (int i = 0; i < 2; i ++)
-        {
-        rectangles[i] = new Rectangle(initialPosition[i]);
-        }
-
-	for (int i = 0; i < numSpheres; i ++)
-	    {
-		spheres[i] = new Sphere();
-	    }
-
-    }
-
-    public void drawSpheres(Graphics g){
-	for (int i = 0; i < numSpheres; i++){
-	    spheres[i].draw(g);
-	}
-    }
-
-    public void drawRectangles(Graphics g){
-        for(int i = 0; i<2; i++){
-            rectangles[i].draw(g);
-        }
-    }
-
-    public void updateSpheres(double time){
-	for (int i = 0; i < numSpheres; i ++)
-	    spheres[i].update(this, time);
-    }
-
-    public void updateRectangles(double time){
-        for(int i = 0; i < 2; i++){
-            rectangles[i].update(this, time);
-        }
-    }
-*/
         }
 
         public boolean isIn(Pair p){
@@ -93,7 +51,6 @@ public class Room{
 
         public void drawRoom(Graphics g){
             currentArea.drawArea(g);
-            //currentArea.drawInventory(g);
         }
 
         public void updateRoom(Graphics g){

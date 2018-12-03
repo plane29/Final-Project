@@ -25,17 +25,14 @@ public class Area extends JPanel{
     public Area myArea;
     public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "flower.jpg");
     public ArrayList<Rectangle> rect;
-    public Area(Graphics g, String filename, int index){
-    	this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));
+
+    public Area(Graphics g, String filename, int index){ //learned about downloading an image and imageIO and image class on oracle and on https://docs.oracle.com/javase/tutorial/2d/images/loadimage.html
+    	this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));  //and https://stackoverflow.com/questions/13038411/how-to-fit-image-size-to-jframe-size
     	image = loadArea(g, filename);
     	rect = new ArrayList<Rectangle>(2);
     	rect.add(0, new Rectangle(0,0, 100, BOX_HEIGHT));
     	rect.add(1, new Rectangle(860,0,100,640));
     	num = index;
-    	//myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "flower.jpg");
-    	//rect[2] = new Rectangle()
-    	//rect[3] =
-    	//rect[2] = new Rectangle(550, 300, 100, 75);
     }
 
     public Image loadArea(Graphics g, String filename){
