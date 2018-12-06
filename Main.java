@@ -8,6 +8,9 @@ import java.awt.event.MouseEvent.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.JFrame;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
+import java.io.IOException;
 
 public class Main extends JPanel implements KeyListener, MouseListener{
 	public int WIDTH = 960;
@@ -19,6 +22,11 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	public boolean hitBoxClicked;
 	public boolean inPuzzle;
 	public boolean inMyArea;
+    public boolean mouseInLeft;
+    public boolean mouseInRight;
+    public static Main hello;
+    public Point p;
+    public Pair mouseLocation = new Pair(0,0);
 	public Main(){
 	addMouseListener(this); //We got information and code about mouselistener from https://www.javatpoint.com/java-mouselistener.  This helped us know the methods and see an example.
 	r = new Room();
@@ -81,11 +89,35 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     	}
 
     }  
-    public void mouseEntered(MouseEvent e) {  //taken from website above necessary to implement mouselistener
+    public static void listenToMouse(){
+        try{
+            hello.p = MouseInfo.getPointerInfo().getLocation();
+        }
+        catch(NullPointerException e){
+            hello.p = new Point(300,300);
+        }
 
+        hello.mouseLocation =  new Pair(hello.p.x,hello.p.y);
+        if(hello.checkRight(hello.mouseLocation,r)){
+            hello.mouseInRight = true;
+            //System.out.println(" yo whats up 29");
+            hello.repaint();
+        }
+        else if(hello.checkLeft(hello.mouseLocation,r)){
+            hello.mouseInLeft = true;
+            //System.out.println(" yo whats up eric");
+            hello.repaint();
+        }
+        else{
+            hello.repaint();
+        }
+
+    }
+    public void mouseEntered(MouseEvent e) {  //taken from website above necessary to implement mouselistener
+        System.out.println("mouse has entered listened area");
     }  
     public void mouseExited(MouseEvent e) {  
-
+        System.out.println("mouse has exited listened area");
     }  
     public void mousePressed(MouseEvent e) {  
   
@@ -113,13 +145,23 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         	inMyArea=false;
         }
         r.drawRoom(g);
+        if(mouseInLeft){
+            r.drawLeftArrow(g);
+            hello.mouseInLeft = false;
+        }
+        if(mouseInRight){
+            r.drawRightArrow(g);
+            hello.mouseInRight = false;
+        }
     }
 
 	public static void main(String[] args) {  //main idea taken from keyboard spheres/draw to screen
-    	Main hello = new Main();  
+    	hello = new Main();  
     	JFrame frame = new JFrame("Escape Room");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(hello);
+        Thread mainThread = new Thread(new Runner());
+        mainThread.start();
         frame.pack();
         frame.setVisible(true);
 	}  
@@ -146,6 +188,8 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	public boolean checkBottom(Pair p, Room r){
 		return r.currentArea.rect.get(2).isIn(p);
 	}
+
+
 
 
 

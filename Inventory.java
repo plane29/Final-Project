@@ -52,4 +52,20 @@ public class Inventory extends JPanel{
 			g.drawImage(flower, 100, height-60, 30, 40, null);
 		}
 	}
+
+	public void drawRightArrow(Graphics g, Pair p){
+		g.setFont(arial);
+		FontMetrics metrics = this.g.getFontMetrics(arial);
+		g.setColor(Color.WHITE);
+		g.drawString("->", p.x - (int)(metrics.stringWidth("->")/2), p.y);
+	}
+
+	public void drawLeftArrow(Graphics g, Pair p){
+		g.setFont(arial);
+		FontMetrics metrics = this.g.getFontMetrics(arial);
+		g.setColor(Color.WHITE);
+		g.drawString("<-", p.x - (int)(metrics.stringWidth("<-")/2), p.y);
+	}
+
+
 }
