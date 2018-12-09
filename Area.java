@@ -30,8 +30,8 @@ public class Area extends JPanel{
     	this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));  //and https://stackoverflow.com/questions/13038411/how-to-fit-image-size-to-jframe-size
     	image = loadArea(g, filename);
     	rect = new ArrayList<Rectangle>(2);
-    	rect.add(0, new Rectangle(0,0, 100, BOX_HEIGHT));
-    	rect.add(1, new Rectangle(860,0,100,640));
+    	rect.add(0, new Rectangle(0,0, BOX_WIDTH/9, BOX_HEIGHT));//creates left hitbox
+    	rect.add(1, new Rectangle(BOX_WIDTH-BOX_WIDTH/9,0,BOX_WIDTH/9,BOX_HEIGHT));//creates right hitbox
     	num = index;
     }
 
@@ -56,7 +56,6 @@ public class Area extends JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  
         drawArea(g);
-        //rect.rectangleDraw(g);
     }
 
     public static void main(String args[]){

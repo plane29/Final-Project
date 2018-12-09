@@ -29,7 +29,7 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     public Pair mouseLocation = new Pair(0,0);
 	public Main(){
 	addMouseListener(this); //We got information and code about mouselistener from https://www.javatpoint.com/java-mouselistener.  This helped us know the methods and see an example.
-	r = new Room();
+	r = new Room(WIDTH, HEIGHT);
 	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	}
 
@@ -63,6 +63,14 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     				inPuzzle=false;
     				repaint();
     			}
+                else if(checkHitBox(toCheck,r)){
+                hitBoxClicked = true;
+                inPuzzle = true;
+                r.currentArea = r.currentArea.puzzle;
+                repaint();
+                hitBoxClicked = false;
+
+                }
     		}
     		else if(checkLeft(toCheck,r)){
     			leftClicked = true;
@@ -74,16 +82,16 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     			repaint();
     		}
     		else if(checkHitBox(toCheck,r)){
+                System.out.println("its in the hitbox");
     			hitBoxClicked = true;
-    			if(r.currentArea.num == 1){
-    				Area.myInventory.flowerClicked=true;
-    				repaint();
-    			}
-    			else{
+                //repaint();
+                //System.out.println(r.currentArea.num != 8 && r.currentArea.num !=3);
 
     				inPuzzle = true;
+                    r.previousArea = r.currentArea;
     				repaint();
-    			}
+                    //inPuzzle = false;
+                hitBoxClicked = false;
     		}
 
     	}
@@ -98,26 +106,28 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         }
 
         hello.mouseLocation =  new Pair(hello.p.x,hello.p.y);
-        if(hello.checkRight(hello.mouseLocation,r)){
-            hello.mouseInRight = true;
-            //System.out.println(" yo whats up 29");
-            hello.repaint();
-        }
-        else if(hello.checkLeft(hello.mouseLocation,r)){
-            hello.mouseInLeft = true;
-            //System.out.println(" yo whats up eric");
-            hello.repaint();
-        }
-        else{
-            hello.repaint();
+        if(!hello.inPuzzle){
+            if(hello.checkRight(hello.mouseLocation,r)){
+                hello.mouseInRight = true;
+                //System.out.println(" yo whats up 29");
+                hello.repaint();
+            }
+            else if(hello.checkLeft(hello.mouseLocation,r)){
+                hello.mouseInLeft = true;
+                //System.out.println(" yo whats up eric");
+                hello.repaint();
+            }
+            else{
+                hello.repaint();
+            }
         }
 
     }
     public void mouseEntered(MouseEvent e) {  //taken from website above necessary to implement mouselistener
-        System.out.println("mouse has entered listened area");
+        //System.out.println("mouse has entered listened area");
     }  
     public void mouseExited(MouseEvent e) {  
-        System.out.println("mouse has exited listened area");
+        //System.out.println("mouse has exited listened area");
     }  
     public void mousePressed(MouseEvent e) {  
   
@@ -141,9 +151,10 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         	r.currentArea =r.currentArea.puzzle;
         }
         if(inMyArea){
-        	r.currentArea = r.currentArea.myArea;
+        	r.currentArea = r.previousArea;
         	inMyArea=false;
         }
+        //g.drawRect(r.currentArea.rect.get(2).x,r.currentArea.rect.get(2).y, r.currentArea.rect.get(2).width, r.currentArea.rect.get(2).height);
         r.drawRoom(g);
         if(mouseInLeft){
             r.drawLeftArrow(g);
@@ -153,6 +164,7 @@ public class Main extends JPanel implements KeyListener, MouseListener{
             r.drawRightArrow(g);
             hello.mouseInRight = false;
         }
+        g.drawRect(395, 360, 150, 100);
     }
 
 	public static void main(String[] args) {  //main idea taken from keyboard spheres/draw to screen
@@ -171,11 +183,17 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 	}
 
 	public boolean checkLeft(Pair p, Room r){
-		return r.currentArea.rect.get(0).isIn(p);
+        if(!inPuzzle){
+		  return r.currentArea.rect.get(0).isIn(p);
+        }
+        return false;
 	}
 
 	public boolean checkRight(Pair p, Room r){
-		return r.currentArea.rect.get(1).isIn(p);
+        if(!inPuzzle){
+		  return r.currentArea.rect.get(1).isIn(p);
+        }
+        return false;
 	}
 
 	public boolean checkHitBox(Pair p, Room r){

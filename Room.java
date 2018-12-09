@@ -22,32 +22,70 @@ public class Room{  //main inspiration came from world in pong/keyboard spheres
     Image leftArrow;
     Image rightArrow;
     Image transparentLeft;
+    int numAreas = 12;
+    Area supArea[];
+    Area previousArea;
 
-    public Room(){
-    areas = new Area[5];
-    areas[0] = new Area(g, "conference.jpg",0);
-    areas[1] = new Area(g, "kitchen.jpg",1);
-    areas[2] = new Area(g, "image3.jpg",2);
-    areas[3] = new Area(g, "image4.jpg",3);
+    public Room(double initWidth, double initHeight){
+    areas = new Area[numAreas];
+    areas[0] = new Area(g, "LockedDoor.jpg",0);
+    areas[1] = new Area(g, "DoorLeft.jpg",1);
+    areas[2] = new Area(g, "FireplaceRight.jpg",2);
+    areas[3] = new Area(g, "Fireplace.jpg",3);
+    areas[4] = new Area(g, "FireplaceLeft.jpg",4);
+    areas[5] = new Area(g, "Sofa.jpg", 5);
+    areas[6] = new Area(g, "WindowRight.jpg",6);
+    areas[7] = new Area(g, "Window.jpg",7);
+    areas[8] = new Area(g, "WindowLeft.jpg",8);
+    areas[9] = new Area(g, "ArmchairOff.jpg",9);
+    areas[10] = new Area(g, "Wall.jpg",10);
+    areas[11] = new Area(g, "Desk.jpg",11);
+
 
     int k;
     int j;
-    for(int i = 0; i<areas.length-1; i++){ //the -1 is because we added the puzzle
-        k = (i+1)%4;
-        j = ((i-1)+4)%4;
+    for(int i = 0; i<areas.length; i++){ //the -1 is because we added the puzzle
+        k = (i+1)%numAreas;
+        j = ((i-1)+numAreas)%numAreas;
         areas[i].setRightNeighbor(areas[j]);
         areas[i].setLeftNeighbor(areas[k]);
     }    
-    areas[0].createHitBox(550,300,100,75);
-    areas[1].createHitBox(100,250,100,100);
+   /* areas[0].createHitBox((int)(initWidth-initWidth/2),(int)(initHeight/2), (int)(initWidth/9),(int)(initHeight/9));//this is the right hitbox
+    areas[1].createHitBox((int)(initWidth/9),(int)(initHeight/3),100,100); //this is the left hitbox
     areas[4] = (new Area(g,"computer.jpg",6));
     areas[0].puzzle = areas[4];
     areas[4].rect.add(new Rectangle(0,640-100, 960, 100));
     areas[4].myArea=areas[0];
+    */
+    areas[3].createHitBox((int)(120*(initWidth/960.0)),(int)(380*(initHeight/640.0)),(int)(200*(initWidth/960.0)), (int)(150* (initHeight/640.0)));
+    areas[4].createHitBox((int)(650*(initWidth/960.0)),(int)(400*(initHeight/640.0)),(int)(220*(initWidth/960.0)), (int)(200* (initHeight/640.0)));
+    areas[5].createHitBox((int)(350*(initWidth/960.0)),(int)(360*(initHeight/640.0)),(int)(100*(initWidth/960.0)), (int)(80* (initHeight/640.0)));
+    areas[7].createHitBox((int)(160*(initWidth/960.0)),(int)(310*(initHeight/640.0)),(int)(75*(initWidth/960.0)), (int)(70* (initHeight/640.0)));
+    areas[8].createHitBox((int)(440*(initWidth/960.0)),(int)(350*(initHeight/640.0)),(int)(75*(initWidth/960.0)), (int)(75* (initHeight/640.0)));
+    areas[9].createHitBox((int)(530*(initWidth/960.0)),(int)(385*(initHeight/640.0)),(int)(90*(initWidth/960.0)), (int)(95* (initHeight/640.0)));
+    supArea = new Area[5];
+    supArea[0] = new Area(g, "ChessPuzzle.jpg",12);
+    areas[8].puzzle = supArea[0];
+    areas[7].puzzle = supArea[0];
+    supArea[1] = new Area(g, "PianoPuzzle.jpg",13);
+    areas[3].puzzle = supArea[1];
+    supArea[1].rect.add(new Rectangle(0,640-100, 960, 100));
+    areas[4].puzzle = supArea[1];
+    supArea[2] = new Area(g, "LightbulbOff.jpg", 14);
+    areas[9].puzzle = supArea[2];
+    supArea[2].rect.add(new Rectangle(0,640-100, 960, 100));
+    supArea[3] = new Area(g, "RiddleQuestion.jpg",15);
+    areas[5].puzzle = supArea[3];
+    supArea[3].rect.add(new Rectangle(0,640-100, 960, 100));
     currentArea = areas[0];
+    supArea[4] = new Area(g, "ChessUnsolved.jpg",16);
+    supArea[0].puzzle = supArea[4];
+    supArea[0].createHitBox((int)(395*(initWidth/960.0)),(int)(360*(initHeight/640.0)),(int)(150*(initWidth/960.0)), (int)(100* (initHeight/640.0)));
+    supArea[0].rect.add(new Rectangle(0,640-100, 960, 100));
+    supArea[4].rect.add(new Rectangle(0,640-100, 960, 100));
     leftArrow = currentArea.loadArea(g,"arrow1.png");
     rightArrow = currentArea.loadArea(g, "arrow2.png");
-    transparentLeft = currentArea.loadArea(g, "transparentRect.jpg");
+    //transparentLeft = currentArea.loadArea(g, "transparentRect.jpg");
 
         }
 
