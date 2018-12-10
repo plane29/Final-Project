@@ -97,6 +97,7 @@ public class Main extends JPanel implements KeyListener, MouseListener{
                                             fClicked = true;
                                             if(checkKeyboard(toCheck, r, 7)){
                                                 r.currentArea.puzzleSolved();
+                                                r.supArea[2].puzzleSolved();
                                                 repaint();
                                             }
 
