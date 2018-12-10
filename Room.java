@@ -35,9 +35,9 @@ public class Room{  //main inspiration came from world in pong/keyboard spheres
     areas[4] = new Area(g, "FireplaceLeft.jpg",4);
     areas[5] = new Area(g, "Sofa.jpg", 5);
     areas[6] = new Area(g, "WindowRight.jpg",6);
-    areas[7] = new Area(g, "Window.jpg",7);
-    areas[8] = new Area(g, "WindowLeft.jpg",8);
-    areas[9] = new Area(g, "ArmchairOff.jpg",9);
+    areas[7] = new Area(g, "Window.jpg",7, "WindowSolved.jpg");
+    areas[8] = new Area(g, "WindowLeft.jpg",8 , "WindowLeftSolved.jpg");
+    areas[9] = new Area(g, "ArmChairOff.jpg",9, "ArmChairOn.jpg");
     areas[10] = new Area(g, "Wall.jpg",10);
     areas[11] = new Area(g, "Desk.jpg",11);
 

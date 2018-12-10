@@ -14,6 +14,7 @@ public class Area extends JPanel{
 	public static final int BOX_WIDTH = 960;
 	public static final int BOX_HEIGHT = 640;
     public Image image;
+    public Image image2;
     public static Graphics g;
     public int num;
     //public Rectangle rect[];
@@ -23,10 +24,13 @@ public class Area extends JPanel{
     public Area backwardNeighbor;
     public Area puzzle;
     public Area myArea;
-    public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "flower.jpg");
+    public boolean isSolved;
+    public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "key.png", "lock.png");
     public ArrayList<Rectangle> rect;
 
-    public Area(Graphics g, String filename, int index, Puzzle p) {
+    public Area(Graphics g, String filename, int index, String filename2) {
+        this(g, filename, index);
+        image2 = loadArea(g, filename2);
 
 
     }
@@ -97,7 +101,8 @@ public class Area extends JPanel{
     }
 
     public void puzzleSolved(){
-
+        image = image2;
+        isSolved = true;
     }
     public boolean getSolved(){
         return true;

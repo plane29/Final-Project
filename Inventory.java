@@ -18,12 +18,15 @@ public class Inventory extends JPanel{
 	int y;
 	int width;
 	int height;
-	Image flower;
+	Image key;
+	Image lock;
 	Graphics g;
-	boolean flowerClicked = false;
+	boolean pickSolved = false;
+	boolean lockSolved = false;
 
-	public Inventory(int initWidth, int initHeight, String filename){
-		flower = loadInventory(g, filename);
+	public Inventory(int initWidth, int initHeight, String filename, String filename2){
+		key = loadInventory(g, filename);
+		lock = loadInventory(g, filename2);
 		width = initWidth;
 		height = initHeight;
 	}
@@ -45,11 +48,14 @@ public class Inventory extends JPanel{
 		g.setFont(arial);
 		FontMetrics metrics = g.getFontMetrics(arial);
 		g.setColor(Color.WHITE);
-		g.fillRect(100,height-105,metrics.stringWidth("Inventory"),33);
+		g.fillRect(width/9,height-height/6,metrics.stringWidth("Inventory"),height/20);
 		g.setColor(Color.BLACK);
-		g.drawString("Inventory", 100, height-80);
-		if(flowerClicked){
-			g.drawImage(flower, 100, height-60, 30, 40, null);
+		g.drawString("Inventory", width/9, height-height/8);
+		if(pickSolved){
+			g.drawImage(key, 100, height-55, 70, 35, null);
+		}
+		if(lockSolved){
+			g.drawImage(lock, 190, height - 65, 45, 50, null);
 		}
 	}
 

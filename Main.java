@@ -37,12 +37,13 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     public boolean dClicked;
     public boolean fClicked;
 	public Main(){
-	addMouseListener(this); //We got information and code about mouselistener from https://www.javatpoint.com/java-mouselistener.  This helped us know the methods and see an example.
-    addKeyListener(this);
-    r = new Room(WIDTH, HEIGHT);
-	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-    Thread mainThread = new Thread(new Runner());
-    mainThread.start();
+	    addMouseListener(this); //We got information and code about mouselistener from https://www.javatpoint.com/java-mouselistener.  This helped us know the methods and see an example.
+        addKeyListener(this);
+        setFocusable(true); //https://stackoverflow.com/questions/286727/unresponsive-keylistener-for-jframe
+        r = new Room(WIDTH, HEIGHT);
+	    this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        Thread mainThread = new Thread(new Runner());
+        mainThread.start();
 	}
 
 	public void keyPressed(KeyEvent e) { //we copied this code from keyboard spheres
@@ -98,15 +99,22 @@ public class Main extends JPanel implements KeyListener, MouseListener{
                                             if(checkKeyboard(toCheck, r, 7)){
                                                 r.currentArea.puzzleSolved();
                                                 r.supArea[2].puzzleSolved();
+                                                r.areas[9].puzzleSolved();
                                                 repaint();
                                             }
 
+
                                         }
+
                                     }
+
                                 }
                             }
-                        }   
+
+                        }
+
                     }
+
                 }
                 else if(checkHitBox(toCheck,r)){
                 hitBoxClicked = true;
@@ -206,9 +214,6 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     @Override    
     public void paintComponent(Graphics g) { //main idea of paint component taken from keyboard spheres
         super.paintComponent(g);
-        if(r.currentArea.num == 16 && correctPawn){
-
-        }
         if(rightClicked){
         	r.currentArea = r.currentArea.rightNeighbor;
         	rightClicked = false;
@@ -220,9 +225,17 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         if(inPuzzle && r.currentArea.num !=16 && r.currentArea.num !=15 && r.currentArea.num != 13){
         	r.currentArea =r.currentArea.puzzle;
         }
+        if(r.currentArea.num == 14 && r.currentArea.getSolved()){
+            Area.myInventory.lockSolved = true;
+        }
         if(correctPawn && !r.currentArea.getSolved()){
             System.out.println("were in this other thing");
             r.currentArea.puzzleSolved();
+            r.areas[7].puzzleSolved();
+            r.areas[8].puzzleSolved();
+            r.areas[7].rect.remove(2);
+            r.areas[8].rect.remove(2);
+            Area.myInventory.pickSolved = true;
             correctPawn = false;
         }
         if(inMyArea){
@@ -243,12 +256,12 @@ public class Main extends JPanel implements KeyListener, MouseListener{
             r.drawRightArrow(g);
             hello.mouseInRight = false;
         }
-        g.drawRect(225, 440, 25, 90);
-        g.drawRect(250, 440, 25, 90);
-        g.drawRect(275, 440, 25, 90);
-        g.drawRect(300, 440, 25, 90);
-        g.drawRect(325, 440, 25, 90);
-        g.drawRect(350, 440, 25, 90);
+        //g.drawRect(225, 440, 25, 90);
+        //g.drawRect(250, 440, 25, 90);
+        //g.drawRect(275, 440, 25, 90);
+        //g.drawRect(300, 440, 25, 90);
+        //g.drawRect(325, 440, 25, 90);
+        //g.drawRect(350, 440, 25, 90);
 
     }
 
@@ -303,6 +316,17 @@ public class Main extends JPanel implements KeyListener, MouseListener{
             return r.currentArea.rect.get(i).isIn(p);
         }
         return false;
+    }
+
+
+    public void setFalse(){
+        cClicked = false;
+        eClicked = false;
+        gClicked = false;
+        bClicked = false;
+        dClicked = false;
+        fClicked = false;
+        System.out.println("wrong code");
     }
 
 
