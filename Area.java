@@ -26,6 +26,11 @@ public class Area extends JPanel{
     public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "flower.jpg");
     public ArrayList<Rectangle> rect;
 
+    public Area(Graphics g, String filename, int index, Puzzle p) {
+
+
+    }
+
     public Area(Graphics g, String filename, int index){ //learned about downloading an image and imageIO and image class on oracle and on https://docs.oracle.com/javase/tutorial/2d/images/loadimage.html
     	this.setPreferredSize(new Dimension(BOX_WIDTH, BOX_HEIGHT));  //and https://stackoverflow.com/questions/13038411/how-to-fit-image-size-to-jframe-size
     	image = loadArea(g, filename);
@@ -89,6 +94,13 @@ public class Area extends JPanel{
 
     public void setPuzzle(Area inPuzzle){
     	puzzle = inPuzzle;
+    }
+
+    public void puzzleSolved(){
+
+    }
+    public boolean getSolved(){
+        return true;
     }
 
 }

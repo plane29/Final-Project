@@ -79,15 +79,15 @@ public class Room{  //main inspiration came from world in pong/keyboard spheres
     areas[5].puzzle = supArea[3];
     supArea[3].rect.add(new Rectangle(0,640-100, 960, 100));
     currentArea = areas[0];
-    supArea[4] = new Area(g, "ChessUnsolved.jpg",16);
+    supArea[4] = new Puzzle(g, "ChessUnsolved.jpg",16, "ChessSolved.jpg");
     supArea[0].puzzle = supArea[4];
     supArea[0].createHitBox((int)(395*(initWidth/960.0)),(int)(360*(initHeight/640.0)),(int)(150*(initWidth/960.0)), (int)(100* (initHeight/640.0)));
     supArea[0].rect.add(new Rectangle(0,640-100, 960, 100));
     supArea[4].createHitBox((int)(430*(initWidth/960.0)),(int)(210*(initHeight/640.0)),(int)(50*(initWidth/960.0)), (int)(75* (initHeight/640.0)));
     supArea[4].createHitBox((int)(480*(initWidth/960.0)),(int)(195*(initHeight/640.0)),(int)(50*(initWidth/960.0)), (int)(40* (initHeight/640.0)));
     supArea[4].rect.add(new Rectangle(0,640-100, 960, 100));
-    supArea[5] = new Area (g, "ChessSolved.jpg", 17);
-    supArea[5].rect.add(new Rectangle(0,640-100, 960, 100));
+    //supArea[5] = new Area (g, "ChessSolved.jpg", 17);
+    //supArea[5].rect.add(new Rectangle(0,640-100, 960, 100));
     leftArrow = currentArea.loadArea(g,"arrow1.png");
     rightArrow = currentArea.loadArea(g, "arrow2.png");
     //transparentLeft = currentArea.loadArea(g, "transparentRect.jpg");

@@ -138,7 +138,7 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         int y = e.getY();
         Pair toCheck = new Pair(x,y); 
         if(r.currentArea.num == 16){
-            if(checkChess(toCheck,r)){
+            if(!r.currentArea.getSolved() && checkChess(toCheck,r)){
                 correctPawn = true;
             }
         }
@@ -149,11 +149,10 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         int y = e.getY();
         Pair toCheck = new Pair(x,y);
         if(r.currentArea.num == 16){
-            if(checkChess2(toCheck,r) && correctPawn){
-                //correctPawn = true;
+            if(!r.currentArea.getSolved() && checkChess2(toCheck,r) && correctPawn){
                 repaint();
-                inPuzzle = true;
-                r.supArea[0].puzzle = r.supArea[5];
+                //inPuzzle = true;
+                //r.supArea[0].puzzle = r.supArea[5];
 
 
             System.out.println("whats good");
@@ -161,15 +160,13 @@ public class Main extends JPanel implements KeyListener, MouseListener{
 
         } 
        
-        correctPawn = false;
     }  
 
     @Override    
     public void paintComponent(Graphics g) { //main idea of paint component taken from keyboard spheres
         super.paintComponent(g);
-        if(r.currentArea.num == 16){
-            correctPawn = true;
-            inPuzzle = false;
+        if(r.currentArea.num == 16 && correctPawn){
+
         }
         if(rightClicked){
         	r.currentArea = r.currentArea.rightNeighbor;
@@ -179,14 +176,12 @@ public class Main extends JPanel implements KeyListener, MouseListener{
         	r.currentArea = r.currentArea.leftNeighbor;
         	leftClicked = false;
         }
-        if(inPuzzle && r.currentArea.num !=17){
+        if(inPuzzle && r.currentArea.num !=16){
         	r.currentArea =r.currentArea.puzzle;
         }
-        if(correctPawn){
-            //r.supArea[4] = r.supArea[5];
-            r.currentArea = r.supArea[5];
-            r.previousArea = r.areas[8];
-            inPuzzle = true;
+        if(correctPawn && !r.currentArea.getSolved()){
+            System.out.println("were in this other thing");
+            r.currentArea.puzzleSolved();
             correctPawn = false;
         }
         if(inMyArea){
