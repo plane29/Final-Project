@@ -25,7 +25,7 @@ public class Area extends JPanel{
     public Area puzzle;
     public Area myArea;
     public boolean isSolved;
-    public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "key.png", "lock.png");
+    public static Inventory myInventory = new Inventory(BOX_WIDTH,BOX_HEIGHT, "pick.png", "lock.png");
     public ArrayList<Rectangle> rect;
 
     public Area(Graphics g, String filename, int index, String filename2) {

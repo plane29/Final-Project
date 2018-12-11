@@ -28,7 +28,7 @@ public class Room{  //main inspiration came from world in pong/keyboard spheres
 
     public Room(double initWidth, double initHeight){
     areas = new Area[numAreas];
-    areas[0] = new Area(g, "LockedDoor.jpg",0);
+    areas[0] = new Area(g, "LockedDoor.jpg",0, "DoorUnlocked.jpg");
     areas[1] = new Area(g, "DoorLeft.jpg",1);
     areas[2] = new Area(g, "FireplaceRight.jpg",2);
     areas[3] = new Area(g, "Fireplace.jpg",3);
@@ -95,8 +95,8 @@ public class Room{  //main inspiration came from world in pong/keyboard spheres
     supArea[4].rect.add(new Rectangle(0,640-100, 960, 100));
     //supArea[5] = new Area (g, "ChessSolved.jpg", 17);
     //supArea[5].rect.add(new Rectangle(0,640-100, 960, 100));
-    leftArrow = currentArea.loadArea(g,"arrow1.png");
-    rightArrow = currentArea.loadArea(g, "arrow2.png");
+    leftArrow = currentArea.loadArea(g,"LeftArrow.png");
+    rightArrow = currentArea.loadArea(g, "RightArrow.png");
     //transparentLeft = currentArea.loadArea(g, "transparentRect.jpg");
 
         }
@@ -117,15 +117,11 @@ public class Room{  //main inspiration came from world in pong/keyboard spheres
         }
 
     public void drawLeftArrow(Graphics g){
-
-        g.drawImage(leftArrow, 20, 260, 120, 80, null);
-
+        g.drawImage(leftArrow, 20, 260, 90, 90, null);
     }
 
     public void drawRightArrow(Graphics g){
-
-        g.drawImage(rightArrow, 820, 260, 120, 80, null);
-        g.drawImage(transparentLeft, 300, 300, 100, 100, null);
+        g.drawImage(rightArrow, 820, 260, 90, 90, null);
 
     }
 

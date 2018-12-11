@@ -18,14 +18,14 @@ public class Inventory extends JPanel{
 	int y;
 	int width;
 	int height;
-	Image key;
+	Image pick;
 	Image lock;
 	Graphics g;
 	boolean pickSolved = false;
 	boolean lockSolved = false;
 
 	public Inventory(int initWidth, int initHeight, String filename, String filename2){
-		key = loadInventory(g, filename);
+		pick = loadInventory(g, filename);
 		lock = loadInventory(g, filename2);
 		width = initWidth;
 		height = initHeight;
@@ -52,7 +52,7 @@ public class Inventory extends JPanel{
 		g.setColor(Color.BLACK);
 		g.drawString("Inventory", width/9, height-height/8);
 		if(pickSolved){
-			g.drawImage(key, 100, height-55, 70, 35, null);
+			g.drawImage(pick, 100, height-62, 112, 57, null);
 		}
 		if(lockSolved){
 			g.drawImage(lock, 190, height - 65, 45, 50, null);
