@@ -13,8 +13,8 @@ import java.awt.PointerInfo;
 import java.io.IOException;
 
 public class Main extends JPanel implements KeyListener, MouseListener{
-    public int WIDTH = 960;
-    public int HEIGHT = 640;
+    public static int WIDTH = 960;
+    public static int HEIGHT = 640;
     public Graphics g;
     public int FPS = 60;
     public static Room r;
@@ -25,6 +25,7 @@ public class Main extends JPanel implements KeyListener, MouseListener{
     public boolean inMyArea;
     public boolean mouseInLeft;
     public boolean mouseInRight;
+    public boolean mouseInBottom;
     public static Main hello;
     public Point p;
     public Pair mouseLocation = new Pair(0,0);
@@ -71,8 +72,6 @@ public class Main extends JPanel implements KeyListener, MouseListener{
                         if(ds.checkTrojan()){
                                 r.currentArea.puzzleSolved();
                                 r.supArea[2].puzzleSolved();
-                                //r.areas[9].rect.remove(2);
-                                //r.areas[9].createHitBox((int)(510*(WIDTH/960.0)),(int)(370*(HEIGHT/640.0)),(int)(90*(WIDTH/960.0)), (int)(95* (HEIGHT/640.0)));
                                 r.areas[9].puzzleSolved();
                                 repaint();
                         }
@@ -201,22 +200,26 @@ public class Main extends JPanel implements KeyListener, MouseListener{
             hello.p = MouseInfo.getPointerInfo().getLocation();
         }
         catch(NullPointerException e){
-            hello.p = new Point(300,300);
+            hello.p = new Point(WIDTH/2,HEIGHT/2);
         }
 
-        hello.mouseLocation =  new Pair(hello.p.x,hello.p.y);
+        hello.mouseLocation =  new Pair(hello.p.x,hello.p.y -50);  //for some reason the initial mouse y location is 50 so we have to adjust for that
         if(!hello.inPuzzle && hello.r.currentArea.num!=16){
             if(hello.checkRight(hello.mouseLocation,r)){
                 hello.mouseInRight = true;
-                //System.out.println(" yo whats up 29");
                 hello.repaint();
             }
             else if(hello.checkLeft(hello.mouseLocation,r)){
                 hello.mouseInLeft = true;
-                //System.out.println(" yo whats up eric");
                 hello.repaint();
             }
             else{
+                hello.repaint();
+            }
+        }
+        else if(hello.inPuzzle){
+            if(hello.checkBottom(hello.mouseLocation,r)){
+                hello.mouseInBottom = true;
                 hello.repaint();
             }
         }
